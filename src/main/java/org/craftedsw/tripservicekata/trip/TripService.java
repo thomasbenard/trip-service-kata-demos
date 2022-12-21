@@ -5,13 +5,14 @@ import java.util.List;
 
 import org.craftedsw.tripservicekata.exception.UserNotLoggedInException;
 import org.craftedsw.tripservicekata.user.User;
-import org.craftedsw.tripservicekata.user.UserSession;
 
 public class TripService {
 
+	private final SessionManager sessionManager = new SessionManager();
+
 	public List<Trip> getTripsByUser(User user) throws UserNotLoggedInException {
 		List<Trip> tripList = new ArrayList<Trip>();
-		User loggedUser = getLoggedUser();
+		User loggedUser = sessionManager.getLoggedUser();
 		boolean isFriend = false;
 		if (loggedUser != null) {
 			for (User friend : user.getFriends()) {
@@ -27,10 +28,6 @@ public class TripService {
 		} else {
 			throw new UserNotLoggedInException();
 		}
-	}
-
-	private User getLoggedUser() {
-		return UserSession.getInstance().getLoggedUser();
 	}
 
 }

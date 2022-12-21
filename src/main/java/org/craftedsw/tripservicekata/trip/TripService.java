@@ -8,7 +8,11 @@ import org.craftedsw.tripservicekata.user.User;
 
 public class TripService {
 
-	private final SessionManager sessionManager = new SessionManager();
+	private final SessionManagerInterface sessionManager;
+
+	public TripService(SessionManagerInterface sessionManager) {
+		this.sessionManager = sessionManager;
+	}
 
 	public List<Trip> getTripsByUser(User user) throws UserNotLoggedInException {
 		List<Trip> tripList = new ArrayList<Trip>();
